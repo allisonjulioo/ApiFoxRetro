@@ -1,16 +1,14 @@
 import { Router } from 'express';
-import { BoardsController } from '../../controllers/Boards';
-import { UsersController } from '../../controllers/Users';
-import { BaseInterface } from '../../typings/BaseInterface';
-import { ModelsRouteInterface } from '../../typings/ModelsRouteInterface';
-import { Board } from '../Board';
-import { User } from '../User';
-import { CardsController } from './../../controllers/Cards/index';
-import { ColumnsController } from './../../controllers/Columns/index';
-import { TeamsController } from './../../controllers/Teams/index';
-import { Card } from './../Card/index';
-import { Column } from './../Column/index';
-import { Team } from './../Team/index';
+import {
+  BoardsController,
+  CardsController,
+  ColumnsController,
+  TeamsController,
+  UsersController,
+} from '../controllers';
+import { BaseInterface, RoutesInterface } from '../interfaces';
+import { Board, Card, Column, Team, User } from './';
+
 /**
  * @param Routes
  * @description
@@ -31,7 +29,7 @@ export class RoutesModel {
   public cardsConstroller: BaseInterface<Card> = new CardsController();
   public columnsController: BaseInterface<Column> = new ColumnsController();
   public teamsController: BaseInterface<Team> = new TeamsController();
-  public models: ModelsRouteInterface[] = [
+  public models: RoutesInterface[] = [
     {
       model: 'boards',
       controller: this.usersController,

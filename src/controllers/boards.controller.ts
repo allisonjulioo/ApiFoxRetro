@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import { BaseService } from '../Base';
-import { Board } from './../../models/Board/index';
+import { BaseController } from './';
+import { Board } from './../models';
 
-export class BoardsController extends BaseService<Board> {
+export class BoardsController extends BaseController<Board> {
   constructor() {
     super(Board);
   }
-
   public async findBoardsByUserId(
     request: Request,
     response: Response

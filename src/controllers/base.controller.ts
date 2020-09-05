@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { DestroyOptions, Op, UpdateOptions } from 'sequelize';
 
-export abstract class BaseService<T> {
+export abstract class BaseController<T> {
   constructor(private model: any) {}
 
   public async get(request: Request, response: Response): Promise<Response<T>> {

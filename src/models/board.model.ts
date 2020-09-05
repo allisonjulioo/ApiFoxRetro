@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import { Team } from '../Team';
-import { connection } from './../../database/index';
+import { connection } from './../database/index';
+import { Team } from './team.model';
 
 export class Board extends Model {
   public title?: string;

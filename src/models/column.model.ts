@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
-import { connection } from '../../database';
-import { Board } from '../Board';
-import { Card } from '../Card';
+import { connection } from '../database';
+import { Board } from './board.model';
+import { Card } from './card.model';
 
 export class Column extends Model {
   public title?: string;

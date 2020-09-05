@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { connection } from '../../database';
+import { connection } from '../database';
 
 export class Card extends Model {
   public content?: string;

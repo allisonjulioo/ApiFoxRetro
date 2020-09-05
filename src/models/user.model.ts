@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import { connection } from './../../database/index';
-import { Board } from './../Board/index';
+import { Board } from './';
+import { connection } from './../database/index';
 
 export class User extends Model {
   public id?: string;
