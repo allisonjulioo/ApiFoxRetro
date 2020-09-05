@@ -25,6 +25,10 @@ Column.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    board_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     tableName: 'columns',

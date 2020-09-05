@@ -9,7 +9,7 @@ export const connection = new Sequelize(
   {
     host: config.host,
     dialect: 'mysql',
-    logging: true,
+    logging: false,
     operatorsAliases: {
       $and: Op.and,
       $or: Op.or,

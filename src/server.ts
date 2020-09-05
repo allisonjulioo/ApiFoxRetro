@@ -19,7 +19,8 @@ export default class Server extends Routes {
   }
   private config() {
     this.server.use(bodyParser.json());
-    this.server.use(cors(), this.routes());
+    this.server.use(cors());
+    this.server.use(this.init());
     this.server.use(bodyParser.urlencoded({ extended: false }));
   }
 }

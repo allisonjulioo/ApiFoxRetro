@@ -1,7 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import { connection } from '../../database';
-import { Column } from '../Column';
-import { User } from '../User';
 
 export class Card extends Model {
   public content?: string;
@@ -22,6 +20,10 @@ Card.init(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     checked: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -32,7 +34,5 @@ Card.init(
     sequelize: connection,
   }
 );
-Card.belongsTo(Column, { foreignKey: 'column_id', as: 'column' });
-Card.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 Card.sync({ force: false }).then(() => console.log('Card table created'));

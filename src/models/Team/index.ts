@@ -1,7 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import { connection } from '../../database';
-import { Board } from '../Board';
-import { Card } from '../Card';
 
 export class Team extends Model {
   public title?: string;
@@ -27,13 +25,9 @@ Team.init(
     },
   },
   {
-    tableName: 'columns',
+    tableName: 'teams',
     sequelize: connection,
   }
 );
-Team.belongsTo(Board, { foreignKey: 'board_id', as: 'board' });
-Team.hasMany(Card, {
-  foreignKey: 'column_id',
-  as: 'cards',
-});
+
 Team.sync({ force: false }).then(() => console.log('Team table created'));
