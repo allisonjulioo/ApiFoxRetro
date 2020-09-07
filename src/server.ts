@@ -8,13 +8,13 @@ export default class Server extends Routes {
   private port: number | string;
   constructor() {
     super();
-    this.port = 8080 || process.env.NODE_ENV;
+    this.port = process.env.NODE_ENV || 8080;
     this.start();
     this.config();
   }
   private start() {
     this.server.listen(this.port, () =>
-      console.log(`Running at http://localhost:${this.port}`)
+      console.log(`🏃 Running Server at port ${this.port}`)
     );
   }
   private config() {
