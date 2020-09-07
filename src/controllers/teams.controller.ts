@@ -7,7 +7,7 @@ export class TeamsController extends BaseController<Team> {
   public include: Includeable[] = [
     {
       association: 'user',
-      attributes: ['id', 'name', 'email', 'teams_ids', 'created_at'],
+      attributes: ['id', 'name', 'email', 'team_id', 'created_at'],
     },
   ];
   constructor() {

@@ -10,6 +10,7 @@ import { RoutesModel } from './../models/';
 import { AuthRoutes } from './auth.routes';
 import { BoardsRoutes } from './boards.routes';
 import { ColumnsRoutes } from './columns.routes';
+import { RemindRoutes } from './remind.routes';
 import { TeamsRoutes } from './teams.routes';
 
 export class Routes {
@@ -21,9 +22,11 @@ export class Routes {
       '*',
       (request: Request, response: Response, next: NextFunction) => {
         const token = request.headers['x-access-token'];
-        const auth = request.originalUrl.split('/').includes('auth');
-        const register = request.originalUrl.split('/').includes('register');
-        if ((token && isValidToken(String(token))) || auth || register) {
+        const auth =
+          request.originalUrl.split('/').includes('auth') ||
+          request.originalUrl.split('/').includes('register') ||
+          request.originalUrl.split('/').includes('remind');
+        if ((token && isValidToken(String(token))) || auth) {
           next();
           return;
         } else {
@@ -44,6 +47,7 @@ export class Routes {
     this.router.use(new BoardsRoutes().routes());
     this.router.use(new TeamsRoutes().routes());
     this.router.use(new ColumnsRoutes().routes());
+    this.router.use(new RemindRoutes().routes());
     return this.router;
   }
 }

@@ -6,7 +6,7 @@ export class User extends Model {
   public name?: string;
   public email?: string;
   public password?: string;
-  public teams_ids?: string;
+  public team_id?: string;
   // timestamps!
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -30,7 +30,7 @@ User.init(
       type: new DataTypes.STRING(128),
       allowNull: false,
     },
-    teams_ids: {
+    team_id: {
       type: new DataTypes.STRING(128),
       allowNull: true,
     },

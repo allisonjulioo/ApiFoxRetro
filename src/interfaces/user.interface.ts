@@ -3,7 +3,7 @@ export interface UserInterface {
   name: string;
   email: string;
   password: string;
-  teams_ids: string;
+  team_id: string;
   // timestamps!
   readonly createdAt: Date;
   readonly updatedAt: Date;
