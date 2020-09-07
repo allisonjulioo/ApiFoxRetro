@@ -26,7 +26,7 @@ Board.init(
     },
     user_votes: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
     },
     limit_votes: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -34,9 +34,13 @@ Board.init(
     },
     in_voting: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
     },
     team_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_id: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -47,5 +51,8 @@ Board.init(
   }
 );
 Board.belongsTo(Team, { foreignKey: 'team_id', as: 'team' });
-
-Board.sync({ force: false }).then(() => console.log('Board table created'));
+Board.hasMany(Team, {
+  foreignKey: 'user_id',
+  as: 'columns',
+});
+Board.sync({ force: false }).then(() => console.log('✓ Boards'));

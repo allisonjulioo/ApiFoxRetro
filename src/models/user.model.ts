@@ -1,5 +1,4 @@
 import { DataTypes, Model } from 'sequelize';
-import { Board } from './';
 import { connection } from './../database/index';
 
 export class User extends Model {
@@ -41,9 +40,4 @@ User.init(
     sequelize: connection,
   }
 );
-User.hasMany(Board, {
-  foreignKey: 'user_id',
-  as: 'boards',
-});
-
-User.sync({ force: false }).then(() => console.log('Users table created'));
+User.sync({ force: false }).then(() => console.log('✓ Users'));

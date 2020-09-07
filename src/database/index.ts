@@ -1,4 +1,4 @@
-import { Op, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import { DatabaseConfig } from '../config';
 const config = new DatabaseConfig();
 
@@ -10,15 +10,6 @@ export const connection = new Sequelize(
     host: config.host,
     dialect: 'mysql',
     logging: false,
-    operatorsAliases: {
-      $and: Op.and,
-      $or: Op.or,
-      $eq: Op.eq,
-      $gt: Op.gt,
-      $lt: Op.lt,
-      $lte: Op.lte,
-      $like: Op.like,
-    },
     define: {
       timestamps: true,
       underscored: true,

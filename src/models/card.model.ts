@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { connection } from '../database';
+import { User } from './user.model';
 
 export class Card extends Model {
   public content?: string;
@@ -18,15 +19,19 @@ Card.init(
     },
     likes: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(),
       allowNull: false,
     },
     checked: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+    user_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
@@ -34,5 +39,5 @@ Card.init(
     sequelize: connection,
   }
 );
-
-Card.sync({ force: false }).then(() => console.log('Card table created'));
+Card.belongsTo(User, { as: 'user', foreignKey: 'user_id' });
+Card.sync({ force: false }).then(() => console.log('✓ Cards'));

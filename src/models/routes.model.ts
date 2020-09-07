@@ -32,11 +32,11 @@ export class RoutesModel {
   public models: RoutesInterface[] = [
     {
       model: 'boards',
-      controller: this.usersController,
+      controller: this.boardsController,
     },
     {
       model: 'users',
-      controller: this.boardsController,
+      controller: this.usersController,
     },
     {
       model: 'teams',
@@ -67,41 +67,43 @@ export class RoutesModel {
   }
   private routes(controller: BaseInterface<any>, model: string): Router {
     /**
-     * @api {post} /api/model Create model
-     * @apiName Create new model
-     * @apiPermission admin
+     * @api {get} /api/get-all-model
+     * @apiName Get all data model
+     * @apiPermission user autenticated
      *
      *
-     * @apiSuccess (200) {Object} mixed `Model` object
+     * @apiSuccess (200) {Array} mixed `Model` object
      */
     this.router
-      .route(`${this.version}/${model}`)
-      .get(controller.get.bind(controller))
-      .post(controller.create.bind(controller));
+      .route(`${this.version}/get-all-${model}`)
+      .get(controller.get.bind(controller));
+
     /**
-     * @api {post} /api/model Create model
-     * @apiName Create new model
-     * @apiPermission admin
+     * @api {get} /api/model/:id
+     * @apiName Get all data model
+     * @apiPermission user autenticated
      *
      *
-     * @apiSuccess (200) {Object} mixed `Model` object
+     * @apiSuccess (200) {Object} `Model` object
      */
     this.router
       .route(`${this.version}/${model}/:id`)
       .get(controller.find.bind(controller))
-      .put(controller.update.bind(controller))
+      .patch(controller.update.bind(controller))
       .delete(controller.delete.bind(controller));
+
     /**
-     * @api {post} /api/model Create model
+     * @api {post} /api/model/new
      * @apiName Create new model
-     * @apiPermission admin
+     * @apiPermission user autenticated
      *
      *
      * @apiSuccess (200) {Object} mixed `Model` object
      */
     this.router
-      .route(`${this.version}/${model}/search`)
-      .post(controller.search.bind(controller));
+      .route(`${this.version}/${model}/new`)
+      .post(controller.create.bind(controller));
+
     return this.router;
   }
 }

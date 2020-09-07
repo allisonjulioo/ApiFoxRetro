@@ -1,9 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import { connection } from '../database';
+import { User } from './user.model';
 
 export class Team extends Model {
   public title?: string;
-  public color?: string;
+  public description?: string;
+  public logo?: string;
+  public enabled?: boolean;
   // timestamps!
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;
@@ -19,9 +22,17 @@ Team.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    color: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    logo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
     },
   },
   {
@@ -29,5 +40,9 @@ Team.init(
     sequelize: connection,
   }
 );
-
-Team.sync({ force: false }).then(() => console.log('Team table created'));
+Team.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+Team.hasMany(User, {
+  foreignKey: 'team_id',
+  as: 'Users',
+});
+Team.sync({ force: false }).then(() => console.log('✓ Teams'));

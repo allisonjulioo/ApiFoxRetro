@@ -15,8 +15,4 @@ export interface BaseInterface<T> {
     request: Request,
     response: Response
   ) => Promise<Response<T>>;
-  readonly search: (
-    request: Request,
-    response: Response
-  ) => Promise<Response<T>>;
 }

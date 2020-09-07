@@ -40,4 +40,4 @@ Column.hasMany(Card, {
   foreignKey: 'column_id',
   as: 'cards',
 });
-Column.sync({ force: false }).then(() => console.log('Column table created'));
+Column.sync({ force: false }).then(() => console.log('✓ Columns'));

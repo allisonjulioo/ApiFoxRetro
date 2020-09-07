@@ -4,7 +4,7 @@ import express, { Application } from 'express';
 import { Routes } from './routes';
 
 export default class Server extends Routes {
-  private server: Application = express();
+  public server: Application = express();
   private port: number | string;
   constructor() {
     super();
