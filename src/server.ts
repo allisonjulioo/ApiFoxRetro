@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { Routes } from './routes';
+import { Routes } from './routes/index.routes';
 config();
 export default class Server extends Routes {
   public server: Application = express();

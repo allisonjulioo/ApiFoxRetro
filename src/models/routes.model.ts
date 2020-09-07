@@ -59,13 +59,16 @@ export class RoutesModel {
         .json({ message: 'this is a version 2 from fox api' });
     });
   }
-  public getDefaultRoutes(): Router {
+  public routes(): Router {
     this.models.map(({ controller, model }) => {
-      this.routes(controller, model);
+      this.getDefaultRoutes(controller, model);
     });
     return this.router;
   }
-  private routes(controller: BaseInterface<any>, model: string): Router {
+  private getDefaultRoutes(
+    controller: BaseInterface<any>,
+    model: string
+  ): Router {
     /**
      * @api {get} /api/get-all-model
      * @apiName Get all data model
