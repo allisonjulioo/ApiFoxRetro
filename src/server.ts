@@ -9,7 +9,7 @@ export default class Server extends Routes {
   private port: number | string;
   constructor() {
     super();
-    this.port = process.env.NODE_ENV || 8080;
+    this.port = process.env.PORT || 8080;
     this.start();
     this.startConfig();
   }
