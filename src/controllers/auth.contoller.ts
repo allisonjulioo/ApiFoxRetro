@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import { NextFunction, Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import md5 from 'md5';
@@ -7,6 +8,7 @@ import { BaseController } from './base.controller';
 export class AuthController extends BaseController<User> {
   constructor() {
     super(User);
+    config();
   }
   public async auth(
     request: Request,

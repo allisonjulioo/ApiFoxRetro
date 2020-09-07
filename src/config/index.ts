@@ -1,9 +1,10 @@
+import { config } from 'dotenv';
 import { Dialect } from 'sequelize/types';
-
+config();
 export class DatabaseConfig {
   public dialect: Dialect = 'mysql';
-  public host: string = 'br194.hostgator.com.br';
-  public username: string = 'alinkdig_alinkdi';
-  public password: string = '121212julio';
-  public database: string = 'alinkdig_retro';
+  public host = String(process.env.DB_HOST);
+  public username = String(process.env.DB_USERNAME);
+  public password = String(process.env.DB_PASSWORD);
+  public database = String(process.env.DB_NAME);
 }
