@@ -1,9 +1,12 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 module.exports = {
   dialect: 'mysql',
-  host: 'br194.hostgator.com.br',
-  username: 'alinkdig_alinkdi',
-  password: '121212julio',
-  database: 'alinkdig_retro',
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   define: {
     timestamps: true,
     underscored: true,
