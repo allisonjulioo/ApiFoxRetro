@@ -42,13 +42,13 @@ export class BoardsController extends BaseController<Board> {
     return response;
   }
 
-  public async search(
+  public async getAllBoardsSearch(
     request: Request,
     response: Response
   ): Promise<Response<Board>> {
     const { value, key } = request.body;
     const user_id = request.headers.uid || '';
-    Board.findAll({
+    const options = {
       where: {
         user_id,
         [key]: {
@@ -56,9 +56,9 @@ export class BoardsController extends BaseController<Board> {
         },
       },
       include: this.association,
-    })
-      .then((data: Board[]) => response.json(data))
+    };
+    return this.search(options)
+      .then((success) => response.status(200).json(success))
       .catch((err: Error) => response.status(500).json(err));
-    return response;
   }
 }

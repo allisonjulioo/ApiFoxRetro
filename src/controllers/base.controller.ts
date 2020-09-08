@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DestroyOptions, UpdateOptions } from 'sequelize';
+import { DestroyOptions, FindOptions, UpdateOptions } from 'sequelize';
 import { Board, Column } from '../models';
 
 export abstract class BaseController<T> {
@@ -108,5 +108,11 @@ export abstract class BaseController<T> {
       });
     }
     return;
+  }
+  public async search(options: FindOptions): Promise<Response<T>> {
+    return this.model
+      .findAll(options)
+      .then((success: T[]) => success)
+      .catch((err: Error) => err);
   }
 }

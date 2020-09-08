@@ -26,7 +26,9 @@ export class BoardsRoutes {
       .get(this.boardsController.getBoardsByUserId.bind(this.boardsController));
     this.router
       .route(`${this.routesModel.version}/get-all-boards/search`)
-      .post(this.boardsController.search.bind(this.boardsController));
+      .post(
+        this.boardsController.getAllBoardsSearch.bind(this.boardsController)
+      );
     return this.router;
   }
 }
