@@ -1,13 +1,16 @@
 import { DataTypes, Model } from 'sequelize';
 import { connection } from './../database/index';
+import { Column } from './column.model';
 import { Team } from './team.model';
 
 export class Board extends Model {
+  public id?: string;
   public title?: string;
   public user_votes?: number;
   public limit_votes?: number;
   public in_voting?: number;
   public team_id?: string;
+  public columns: Column[] = [];
   // timestamps!
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;
@@ -51,8 +54,8 @@ Board.init(
   }
 );
 Board.belongsTo(Team, { foreignKey: 'team_id', as: 'team' });
-Board.hasMany(Team, {
-  foreignKey: 'user_id',
+Board.hasMany(Column, {
+  foreignKey: 'board_id',
   as: 'columns',
 });
-Board.sync({ force: false }).then(() => console.log('✓ Boards'));
+Board.sync().then(() => console.log('✓ Boards'));

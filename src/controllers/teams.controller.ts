@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Includeable, Op } from 'sequelize';
+import { Includeable } from 'sequelize';
 import { Team } from '../models/';
 import { BaseController } from './';
 
@@ -41,23 +41,23 @@ export class TeamsController extends BaseController<Team> {
       .catch((err: Error) => response.status(500).json(err));
     return response;
   }
-  public async search(
-    request: Request,
-    response: Response
-  ): Promise<Response<Team>> {
-    const { value, key } = request.body;
-    const user_id = request.headers.uid || '';
-    Team.findAll({
-      where: {
-        user_id,
-        [key]: {
-          [Op.like]: `%${value}%`,
-        },
-      },
-      include: this.include,
-    })
-      .then((data: Team[]) => response.json(data))
-      .catch((err: Error) => response.status(500).json(err));
-    return response;
-  }
+  // public async search(
+  //   request: Request,
+  //   response: Response
+  // ): Promise<Response<Team>> {
+  //   const { value, key } = request.body;
+  //   const user_id = request.headers.uid || '';
+  //   Team.findAll({
+  //     where: {
+  //       user_id,
+  //       [key]: {
+  //         [Op.like]: `%${value}%`,
+  //       },
+  //     },
+  //     include: this.include,
+  //   })
+  //     .then((data: Team[]) => response.json(data))
+  //     .catch((err: Error) => response.status(500).json(err));
+  //   return response;
+  // }
 }

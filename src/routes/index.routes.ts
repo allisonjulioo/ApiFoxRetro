@@ -7,6 +7,7 @@ import express, {
 } from 'express';
 import { isValidToken } from '../utils/validates/token';
 import { RoutesModel } from './../models/';
+import { AnalyticsRoutes } from './analytics.routes';
 import { AuthRoutes } from './auth.routes';
 import { BoardsRoutes } from './boards.routes';
 import { ColumnsRoutes } from './columns.routes';
@@ -40,7 +41,6 @@ export class Routes {
     this.routes();
     return this.router;
   }
-
   private routes(): Router {
     this.router.use(new RoutesModel().routes());
     this.router.use(new AuthRoutes().routes());
@@ -48,6 +48,7 @@ export class Routes {
     this.router.use(new TeamsRoutes().routes());
     this.router.use(new ColumnsRoutes().routes());
     this.router.use(new RemindRoutes().routes());
+    this.router.use(new AnalyticsRoutes().routes());
     return this.router;
   }
 }

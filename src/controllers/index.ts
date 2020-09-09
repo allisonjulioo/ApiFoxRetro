@@ -1,3 +1,4 @@
+export { AnalyticsController } from './analytics.controller';
 export { AuthController } from './auth.contoller';
 export { BaseController } from './base.controller';
 export { BoardsController } from './boards.controller';
