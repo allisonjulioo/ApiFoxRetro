@@ -10,7 +10,7 @@ export class Board extends Model {
   public limit_votes?: number;
   public in_voting?: number;
   public team_id?: string;
-  public columns: Column[] = [];
+  public columns!: Column[];
   // timestamps!
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;

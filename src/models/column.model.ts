@@ -6,6 +6,7 @@ export class Column extends Model {
   public id!: string;
   public title?: string;
   public color?: string;
+  public board_id!: string;
   public cards!: Card[];
   // timestamps!
   public readonly createdAt?: Date;
