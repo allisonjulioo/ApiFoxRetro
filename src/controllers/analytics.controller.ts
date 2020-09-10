@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
-import { ChartLine } from '../interfaces/chart-line.interface';
 import { Board, Card } from '../models';
 import { ExcludeCloudWords } from './../enums/cloud-words-exclude.enum';
 import { Column } from './../models/column.model';
@@ -32,22 +31,61 @@ export class AnalyticsController extends BaseController<Board> {
         },
       ],
     });
-    const data: ChartLine[] = [];
+    let data: any[] = [];
     if (boards) {
-      boards.forEach((board, index) => {
-        board.columns.forEach((column, i) => {
+      boards.map((board, index) => {
+        board.columns.map(() => {
           data.push({
-            board: board.title || '',
-          });
-          data[index].columns?.push({
-            column: column.title || '',
-            cards: column.cards.length,
+            board: String(board.title),
+            columns: board.columns.map((column) => ({
+              column: String(column.title),
+              cards: column.cards.length,
+            })),
           });
         });
-        console.log(data);
+      });
+      let cards: { label: string; data: number }[] = [];
+      data = data
+        .filter(
+          (dt: any, index, self) =>
+            index === self.findIndex((t: any) => t.board === dt.board)
+        )
+        .map((d) => d.board);
+
+      boards.map((board: Board) =>
+        board.columns.map((column: Column) => {
+          if (board.id === column.board_id) {
+            cards.push({
+              label: String(column.title),
+              data: column.cards.length,
+            });
+          }
+        })
+      );
+      let total = [
+        {
+          label: 'Para melhorar',
+          data: new Array(),
+        },
+        {
+          label: 'Deu certo',
+          data: new Array(),
+        },
+        {
+          label: 'Ações',
+          data: new Array(),
+        },
+      ];
+      cards.map((card) => {
+        const index = (value: string): number =>
+          total.findIndex((t) => t.label === value);
+        total[index(card.label)].data.push(card.data);
       });
       return response.json({
-        ...data,
+        data: {
+          labels: new Array(...data),
+          data: total,
+        },
       });
     }
     return boards;
