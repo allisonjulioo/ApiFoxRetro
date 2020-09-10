@@ -32,18 +32,6 @@ export class RemindController extends BaseController<User> {
       await this.generateCode(response, user);
     }
   }
-  private emailCredentials() {
-    return nodemailer.createTransport({
-      host: process.env.DB_HOST,
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.BASE_EMAIL,
-        pass: process.env.DB_PASSWORD,
-      },
-      tls: { rejectUnauthorized: false },
-    });
-  }
   private async generateCode(response: Response, user: User) {
     const code: number = generateCode(4);
     this.mailOptions = {
@@ -77,21 +65,28 @@ export class RemindController extends BaseController<User> {
     return;
   }
   private async sendEmail(user: User, code_verification: number) {
-    console.log(code_verification);
-    return this.emailCredentials().sendMail(
-      this.mailOptions,
-      async (error, info) => {
-        if (error) {
-          return error;
-        } else {
-          const id: string = String(user.id);
-          this.successInfo = await User.update(
-            { code_verification },
-            { where: { id } }
-          );
-          return info;
-        }
+    const transporter = nodemailer.createTransport({
+      host: process.env.DB_HOST,
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.BASE_EMAIL,
+        pass: process.env.DB_PASSWORD,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+    return transporter.sendMail(this.mailOptions, async (error, info) => {
+      if (error) {
+        return error;
+      } else {
+        const id: string = String(user.id);
+        console.log(info);
+        this.successInfo = await User.update(
+          { code_verification },
+          { where: { id } }
+        );
+        return info;
       }
-    );
+    });
   }
 }

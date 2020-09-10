@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
+import md5 from 'md5';
 import { DestroyOptions, FindOptions, UpdateOptions } from 'sequelize';
-import { Board, Column } from '../models';
+import { Board, Column, User } from '../models';
 
 export abstract class BaseController<T> {
   constructor(private model: any) {}
@@ -22,7 +23,7 @@ export abstract class BaseController<T> {
     request: Request,
     response: Response
   ): Promise<Response<T>> {
-    let params: T = request.body;
+    let params: T | any = request.body;
     const user_id = request.headers.uid || '';
     params = { ...params, user_id };
     this.model
@@ -30,6 +31,9 @@ export abstract class BaseController<T> {
       .then((result: T) => {
         if (this.model === Board) {
           this.createDefaultColumns(result, String(user_id));
+        }
+        if (this.model === User) {
+          params.password = md5(params.password);
         }
         return response.status(201).json(result);
       })

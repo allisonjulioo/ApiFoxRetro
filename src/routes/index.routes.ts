@@ -11,7 +11,6 @@ import { AnalyticsRoutes } from './analytics.routes';
 import { AuthRoutes } from './auth.routes';
 import { BoardsRoutes } from './boards.routes';
 import { ColumnsRoutes } from './columns.routes';
-import { RemindRoutes } from './remind.routes';
 import { TeamsRoutes } from './teams.routes';
 
 export class Routes {
@@ -47,7 +46,6 @@ export class Routes {
     this.router.use(new BoardsRoutes().routes());
     this.router.use(new TeamsRoutes().routes());
     this.router.use(new ColumnsRoutes().routes());
-    this.router.use(new RemindRoutes().routes());
     this.router.use(new AnalyticsRoutes().routes());
     return this.router;
   }

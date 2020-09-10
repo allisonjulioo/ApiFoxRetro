@@ -30,7 +30,7 @@ export class AuthController extends BaseController<User> {
       const token = sign({ id }, String(process.env.SECRET), {
         expiresIn: 3600, // expires in 1h
       });
-      const { name, email, id: user_id, password } = user;
+      const { name, email, id: user_id } = user;
       return response.json({
         auth: true,
         user_id,
@@ -43,6 +43,27 @@ export class AuthController extends BaseController<User> {
         .status(400)
         .json({ auth: false, error: 'login ou senha inválidos' });
     }
+  }
+  public async register(
+    request: Request,
+    response: Response
+  ): Promise<Response<User>> {
+    let params: User = request.body;
+    params.password = md5(String(params.password));
+
+    User.create(params)
+      .then((result: User) => {
+        const { id, name, email } = result;
+        return response.status(201).json({
+          id,
+          name,
+          email,
+          isValid: true,
+        });
+      })
+      .catch((err: Error) => response.status(500).json(err));
+
+    return response;
   }
   public async validateToken(
     request: Request,
