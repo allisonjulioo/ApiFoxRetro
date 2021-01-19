@@ -23,7 +23,7 @@ export class Routes {
       (request: Request, response: Response, next: NextFunction) => {
         const token = request.headers['x-access-token'];
         const auth =
-          request.originalUrl.split('/').includes('auth') ||
+          request.originalUrl.split('/').includes('authentication') ||
           request.originalUrl.split('/').includes('register') ||
           request.originalUrl.split('/').includes('remind');
         if ((token && isValidToken(String(token))) || auth) {

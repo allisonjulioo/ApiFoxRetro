@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import { DatabaseConfig } from '../config';
+import { Sequelize } from "sequelize";
+import { DatabaseConfig } from "../config";
 const config = new DatabaseConfig();
 
 export const connection = new Sequelize(
@@ -8,7 +8,7 @@ export const connection = new Sequelize(
   config.password,
   {
     host: config.host,
-    dialect: 'mysql',
+    dialect: "mysql",
     logging: false,
     define: {
       timestamps: true,
@@ -20,8 +20,8 @@ export const connection = new Sequelize(
 connection
   .authenticate()
   .then(() => {
-    console.log('Connection database has been established successfully.');
+    console.log("Connection database has been established successfully.");
   })
   .catch((err) => {
-    console.error('Unable to connect to the database:', err);
+    console.error("Unable to connect to the database:", err);
   });
